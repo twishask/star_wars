@@ -1,33 +1,58 @@
 .App {
-  text-align: center;
+  background-color: #deded0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.Filter-section {
+  background-color: #deded0;
+  height: 100vh;
+  font-size: 17px;
+  width: 25%;
+  float: left;
+  padding-left: 20px;
+}
+.Character-list {
+  font-size: 22px;
+  background-color: #deded0;
+  height: 100%;
+  width: 72%;
+  max-height: 100vh;
+  overflow: auto;
+  float: left;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Film-filter {
 }
 
-.App-link {
-  color: #61dafb;
+.Species-filter {
+  padding-left: 20px;
+  max-height: 300px;
+  background-color: white;
+  overflow: auto;
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+ul {
+  list-style-type: none;
+  margin: 8px;
+}
+
+li {
+    background-color: white;
+    display: block;
+    min-height: 45px;
+    margin: 4px;
+    padding-left: 8px;
+    padding-top: 12px;
+    width: 80%;
+}
+
+input[type=button] {
+  height: 35px;
+  float: right;
+  margin: 20px;
+}
+
+h4 {
 }
