@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import MultiSelect from "@khanacademy/react-multi-select";
+import Users from './users.js'
+import Contact from './contact.js'
+import { withRouter } from 'react-router';
 
 class App extends Component {
 
   constructor() {
     super()
+    this.redirectTest = this.redirectTest.bind(this);
     this.state = {
       people: [],
       species: [],
@@ -22,7 +27,12 @@ class App extends Component {
       ],
     }
   }
-
+  nextPath(path) {
+      this.props.history.push(path);
+    }
+  redirectTest () {
+    this.props.history.push("/users")
+  }
   requestPeople = async() => {
     var i;
     var temp = this.state.people
@@ -117,40 +127,55 @@ class App extends Component {
   render() {
     const selectSettings ={selectSomeItems: "Select movies...", allItemsAreSelected: "All Movies are Selected",}
     return (
-    <div className="App">
-      <header className="App-header">
-      <div className="Filter-section">
-      <h2 align="center">Filter List</h2>
-        <div className="Film-filter">
-        <MultiSelect overrideStrings={selectSettings} options={this.state.films} selected={this.state.selected} onSelectedChanged={this.handleSelectedFilms} />
+      <div className="App">
+        <header className="App-header">
+        <div className="Filter-section">
+        <h2 align="center">Filter List</h2>
+          <div className="Film-filter">
+          <MultiSelect overrideStrings={selectSettings} options={this.state.films} selected={this.state.selected} onSelectedChanged={this.handleSelectedFilms} />
+          </div>
+          <br></br><br></br>
+          <div className="Species-filter" onChange={this.handleSpeciesFilter.bind(this)}>
+            <h4>Filter by Species</h4>
+            {this.state.species.map(item => {
+              const url = item["url"]
+              const speciesNumber = url.split("/");
+              return <div>
+                      <input type="radio" name="species" value={speciesNumber[5]} />{item["name"]}
+                    </div>
+            })}
+          </div>
+          <input type="button" value="Apply filters" onClick={this.searchByFilters.bind(this)} />
+          <input type="button" value=" redirect" onClick={this.redirectTest} />
         </div>
-        <br></br><br></br>
-        <div className="Species-filter" onChange={this.handleSpeciesFilter.bind(this)}>
-          <h4>Filter by Species</h4>
-          {this.state.species.map(item => {
-            const url = item["url"]
-            const speciesNumber = url.split("/");
-            return <div>
-                    <input type="radio" name="species" value={speciesNumber[5]} />{item["name"]}
-                  </div>
-          })}
+        <div className="Character-list">
+        <h2 align="center">Characters</h2>
+        <ul>
+        {this.state.people.map(person => {
+                return<li onClick={this.details}>
+                {person["name"]}
+                </li>
+        })}
+        </ul>
         </div>
-        <input type="button" value="Apply filters" onClick={this.searchByFilters.bind(this)} />
+        </header>
       </div>
-      <div className="Character-list">
-      <h2 align="center">Characters</h2>
-      <ul>
-      {this.state.people.map(person => {
-              return<li onClick={this.details}>
-              {person["name"]}
-              </li>
-      })}
-      </ul>
-      </div>
-      </header>
-    </div>
-  );
+    );
 }
 }
 
-export default App;
+export default withRouter(App);
+
+/*
+<Redirect to="/users" />
+import {Redirect} from 'react-router';
+
+<div>
+  <Contact />
+  <button onClick={() => this.nextPath('/users') }>
+    change path
+  </button>
+  </div>
+
+
+*/
