@@ -1,9 +1,7 @@
 .App {
-  background-color: #deded0;
 }
 
 .Filter-section {
-  background-color: #deded0;
   height: 100vh;
   font-size: 17px;
   width: 25%;
@@ -12,7 +10,6 @@
 }
 .Character-list {
   font-size: 22px;
-  background-color: #deded0;
   height: 100%;
   width: 72%;
   max-height: 100vh;
@@ -55,4 +52,13 @@ input[type=button] {
 }
 
 h4 {
+}
+
+.Details {
+  margin: 10px;
+  padding: 10px;
+}
+table {
+  border: 1px solid black;
+  padding: 10px;
 }

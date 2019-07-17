@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import MultiSelect from "@khanacademy/react-multi-select";
-import Users from './users.js'
-import Contact from './contact.js'
 import { withRouter } from 'react-router';
 
 class App extends Component {
 
   constructor() {
     super()
-    this.redirectTest = this.redirectTest.bind(this);
     this.state = {
       people: [],
       species: [],
       allPeople: [],
       selected: [],
+      speciesNumber: '',
       films : [
         {label: "A New Hope", value: 1},
         {label: "The Empire Strikes Back", value: 2},
@@ -27,12 +24,7 @@ class App extends Component {
       ],
     }
   }
-  nextPath(path) {
-      this.props.history.push(path);
-    }
-  redirectTest () {
-    this.props.history.push("/users")
-  }
+
   requestPeople = async() => {
     var i;
     var temp = this.state.people
@@ -60,7 +52,6 @@ class App extends Component {
           species: temp,
         })
     }
-    console.log(this.state.species)
   }
 
   componentDidMount() {
@@ -68,8 +59,12 @@ class App extends Component {
     this.requestSpecies();
   }
 
-  details = e => {
-
+  viewDetails = e => {
+    const url = e.url;
+    const peopleNumber = url.split("/")
+    this.props.history.push({
+      pathname: '/character/'+peopleNumber[5],
+    })
   }
 
   handleSelectedFilms = e => {
@@ -92,18 +87,15 @@ class App extends Component {
       var filmUrl = "https://swapi.co/api/films/"+selected[i]
       if(personFilms.includes(filmUrl)){}
       else {
-        console.log("False working");
         return false
       }
     }
-    console.log("True working")
     return true
   }
 
   speciesFilter = e => {
     var speciesUrl = "https://swapi.co/api/species/"+this.state.speciesNumber
     var personSpecies = ""+e.species
-    console.log(e.species)
     if (personSpecies.includes(speciesUrl)) {
         return true
     }
@@ -146,13 +138,12 @@ class App extends Component {
             })}
           </div>
           <input type="button" value="Apply filters" onClick={this.searchByFilters.bind(this)} />
-          <input type="button" value=" redirect" onClick={this.redirectTest} />
         </div>
         <div className="Character-list">
         <h2 align="center">Characters</h2>
         <ul>
         {this.state.people.map(person => {
-                return<li onClick={this.details}>
+                return<li onClick={() => this.viewDetails(person) }>
                 {person["name"]}
                 </li>
         })}
@@ -165,17 +156,3 @@ class App extends Component {
 }
 
 export default withRouter(App);
-
-/*
-<Redirect to="/users" />
-import {Redirect} from 'react-router';
-
-<div>
-  <Contact />
-  <button onClick={() => this.nextPath('/users') }>
-    change path
-  </button>
-  </div>
-
-
-*/

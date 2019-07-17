@@ -5,12 +5,15 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import App from './App'
 import Users from './users'
 import Contact from './contact'
+import Detail from './Details'
+
 const routing = (
   <Router>
     <div>
       <Route exact path="/" component={App} />
       <Route path="/users" component={Users} />
       <Route path="/contact" component={Contact} />
+      <Route path="/character/:id" component={Detail} />
     </div>
   </Router>
 )
