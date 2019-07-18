@@ -79,7 +79,7 @@ class Detail extends Component {
         <td>{this.state.character["name"]}</td>
         </tr><tr>
         <td><h4>Movies: </h4></td>
-        <td>{this.state.films.map(item => {return <div>{this.state.allFilms[item]}</div> })}</td>
+        <td>{this.state.films.map(item => {return <div>{this.state.allFilms[item-1]}</div> })}</td>
         </tr><tr>
         <td><h4>Species: </h4></td>
         <td>{this.state.species}</td>
