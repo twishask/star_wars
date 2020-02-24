@@ -43,6 +43,7 @@ li {
     padding-left: 8px;
     padding-top: 12px;
     width: 80%;
+    cursor: pointer;
 }
 
 input[type=button] {
